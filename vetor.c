@@ -58,9 +58,8 @@ void inserirValor(int v[]){
 
 	for(i=0;i<tam_vet;i++){
 		printf("Insira um valor para a posicao %d: ", (i+1));
-		printf("\n");
 		scanf("%d",v);
-		*v++;
+		v++;
 	}
 }
 
@@ -70,13 +69,13 @@ void ordenarValor(int v[]){
 	l_sup = tam_vet;
 	while(l_sup>1){
 		i=0;
-		while(i<l_sup){
+		while(i<l_sup-1){
 			if(v[i]>v[i+1]){
 				aux = v[i];
 				v[i] = v[i+1];
 				v[i+1] = aux;
 			}
-		i++;
+			i++;
 		}
 		l_sup--;
 	}
@@ -84,20 +83,29 @@ void ordenarValor(int v[]){
 
 void buscarValor(int v[]){
 	int inicio = 0, meio, fim = tam_vet, posi=0, valor;
-
-	scanf("%d", &valor);
-	while(posi){
-		meio = (inicio + fim)/2; // adicionar o caso em que o valor inserido nao esteja
-		if(v[meio] == valor){    // no vetor
-			posi = meio;
-			break;
-		}
-		if(v[meio] < valor){
-			inicio = meio ;
-		}else{
-			fim = meio;
-		}
+	int erro=0;
 	
+	while(!erro){
+		printf("Insira um valor de busca valido: ");
+		scanf("%d", &valor);
+		while(posi){
+			meio = (inicio + fim)/2; // adicionar o caso em que o valor inserido nao esteja
+			if(v[meio] == valor){    // no vetor
+				posi = meio;
+				printf("O valor %d esta na posicao %d", valor,meio);
+				erro = 1;
+				getchar();
+				getchar();
+				break;
+			}
+			if(v[meio] < valor){
+				inicio = meio ;
+			}else{
+				fim = meio;
+			}
+	
+		}
+		printf("Valor nao encontrado.\n");
 	}
 }
 
