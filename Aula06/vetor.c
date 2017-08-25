@@ -83,17 +83,16 @@ void ordenarValor(int v[]){
 
 void buscarValor(int v[]){
 	int inicio = 0, meio, fim = tam_vet, posi=0, valor;
-	int erro=0;
-	
-	while(!erro){
-		printf("Insira um valor de busca valido: ");
-		scanf("%d", &valor);
-		while(posi){
+	int erro=1;
+
+		while(inicio<fim && erro){
+			printf("Insira um valor a ser buscado: ");
+			scanf("%d", &valor);
 			meio = (inicio + fim)/2; // adicionar o caso em que o valor inserido nao esteja
 			if(v[meio] == valor){    // no vetor
 				posi = meio;
 				printf("O valor %d esta na posicao %d", valor,meio);
-				erro = 1;
+				erro = 0;
 				getchar();
 				getchar();
 				break;
@@ -106,7 +105,6 @@ void buscarValor(int v[]){
 	
 		}
 		printf("Valor nao encontrado.\n");
-	}
 }
 
 void mostrarVetor(int v[]){

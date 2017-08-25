@@ -28,6 +28,12 @@ typedef struct {
 	int matricula;
 }registro;
 
+void menu();
+void showMenu();
+void incluirAluno(registro *v, int *l_sup);
+void imprimirAluno(registro *v,int *l_sup);
+
+
 int main(){
 
 	menu();
@@ -35,10 +41,22 @@ int main(){
 	return 0;
 }
 
+void showMenu(){
+	printf("############ MENU ############\n");
+	printf("1. Inserir valores\n");
+	printf("2. Ordenar valores\n");
+	printf("3. Buscar valor\n");
+	printf("4. Mostrar vetor\n");
+	printf("0. Sair\n");
+}
+
 void menu(){
   int menu, l_sup=0;
 	registro aluno[tam_vet]; //caso colocar * antes de aluno, o que rola?
 	while(menu){
+		scanf("%d", &menu);
+		system("clear");
+		showMenu();
 		if(menu==1)
 			incluirAluno(aluno, &l_sup);
 		else
@@ -51,12 +69,12 @@ void incluirAluno(registro *v, int *l_sup){
 	printf("Digite matricula: ");
 	scanf("%d\n", &v[*l_sup].matricula);
 	printf("Digite o nome do aluno: ");
-	scanf("%s\n", v[l_sup].nome);
-	*lsupp++;
+	scanf("%s\n", v[*l_sup].nome);
+	*l_sup++;
 
 }
 
-void imprimirAluno(registro *v, *l_sup){
+void imprimirAluno(registro *v,int *l_sup){
 	int i=0;
 
 	while(i<*l_sup){
