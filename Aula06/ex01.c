@@ -1,3 +1,7 @@
+/*
+Inclui um aluno no final do vetor
+e o imprime
+*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -15,7 +19,7 @@ void inserirAluno(registro aluno[], int *l_sup);
 void imprimirTurma(registro aluno[], int *l_sup);
 
 int main(){
-    
+
     menu();
 
     return 0;
@@ -64,7 +68,7 @@ void inserirAluno(registro aluno[], int *l_sup) {
             break;
         }
         strcpy(aluno[*l_sup].nome, nome_aux);
-        
+
         *l_sup++;
         printf("De novo: %d", *l_sup);
     }

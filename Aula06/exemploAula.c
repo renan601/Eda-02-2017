@@ -1,3 +1,6 @@
+/* Exemplo do professor
+*/
+
 #include<stdio.h>
 #include<stdlib.h>
 
@@ -40,7 +43,7 @@ void opcaoMenu(registro aluno[]){
 
 void incluirAluno(registro aluno[], int *l_sup){
 	int i=0;
-	
+
 }
 
 void imprimirAluno(registro aluno[], int *l_sup){
