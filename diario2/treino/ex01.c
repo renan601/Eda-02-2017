@@ -52,16 +52,16 @@ int buscaAluno(registro temp, registro aluno[20]){
 void incluiAluno(registro temp, registro aluno[20]){
   int tam;
   tam = tamanhoRegistro(aluno);
-  aluno[tam+1].nome = temp.nome;
+  strcpy(aluno[tam+1].nome,temp.nome);
   aluno[tam+1].matricula = temp.matricula;
   printaRegistro(aluno);
 }
 
 void excluiAluno(registro temp, registro aluno[20]){
   int acheiPosicao;
-  acheiPosicao = buscaAluno(temp, registro);
+  acheiPosicao = buscaAluno(temp, aluno);
   if(acheiPosicao){
-    aluno[acheiPosicao].nome = '\0';
+    aluno[acheiPosicao].nome== "\0";
     aluno[acheiPosicao].matricula = 0;
     printaRegistro(aluno);
   }else{
@@ -72,21 +72,27 @@ void excluiAluno(registro temp, registro aluno[20]){
 void recebeDados(registro aluno[20]){
   registro temp;
   char opcao[3];
-  scanf("%s %s %d", opcao, temp.aluno, temp.matricula);
-  switch(opcao){
-    case'IU':
-      void incluiAluno(temp, aluno);
+  int opcaoAux;
+  scanf("%s %s %d", opcao, temp.nome, temp.matricula);
+  if(opcao == "IU"){
+    opcaoAux = 1;
+  }
+  if(opcao == "EX"){
+    opcaoAux = 2;
+  }
+  switch(opcaoAux){
+    case 1:
+      incluiAluno(temp, aluno);
       break;
-    case'EX':
-      void excluiAluno(tamp, aluno);
+    case 2:
+      excluiAluno(temp, aluno);
       break;
   }
-
 }
 
 int main(){
   registro aluno[20];
-
+  iniciaRegistro(aluno);
   recebeDados(aluno);
 
 
