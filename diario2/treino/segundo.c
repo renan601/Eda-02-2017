@@ -8,58 +8,64 @@ typedef struct registro{
     struct registro* prox;
 }Registro;
 
-void insereInicio(Registro* l, char tempNome[30], int tempMatricula){
+typedef struct cabeca{
+    Registro* primeiro;
+    Registro* ultimo;
+    int quant;
+}Cab;
+
+void insereInicio(Cab* l, char tempNome[30], int tempMatricula){
     Registro* novo = (Registro*)malloc(sizeof(Registro));
     strcpy(novo->nome, tempNome);
     novo->matricula = tempMatricula;
     novo->prox = l;
-    l=novo;
+    l->primeiro = l->ultimo = novo;
+    l->quant++;
 }
 
-void insereFinal(Registro* l, char tempNome[30], int tempMatricula){
-   
-    if(l == NULL){
+void insereFinal(Cab* l, char tempNome[30], int tempMatricula){
+
+    if(l->primeiro == NULL){
         insereInicio(l,tempNome,tempMatricula);
         printf("%s,%d; ", l->nome, l->matricula);
     }else{
-        
-        Registro* p;
+
         Registro* novo = (Registro*)malloc(sizeof(Registro));
-        
+
         strcpy(novo->nome, tempNome);
         novo->matricula = tempMatricula;
         novo->prox = NULL;
+
+        l->ultimo->proximo = novo;
+        l->ultimo = novo;
+        l->quant ++;
+    }
+}
+
+void imprimeRegistro(Cab* l){
+    int i;
+    Registro* aux = l->primeiro;
+    for(i=0;i<l->quant;i++){
+      printf("%s,%d; ", aux->nome, aux->matricula);
+      aux = aux->proximo;
+    }
+}
+void excluirAluno(Cab* l, char tempNome[30], int tempMatricula){
     
-        for(p = l; p != NULL; p = p->prox);
-        printf("entreeeei %d", p->matricula);
-        p->prox = novo;
-    }
-}
-
-void imprimeRegistro(Registro* l){
-    Registro* p;
-    if(l==NULL){
-        printf("BASE VAZIA\n");
-    }else{
-        for(p = l; p != NULL; p = p->prox){
-            printf("%s,%d; ", p->nome, p->matricula);
-        }
-        printf("\n");
-    }
-}
-void excluirAluno(Registro* l, char tempNome[30], int tempMatricula){
-
 }
 
 
 
 int main(){
-    Registro* l;
+    Cab* l;
     char opcao[3];
     char tempNome[30];
     int tempMatricula;
 
-    l = NULL;
+    l = (Cab*)malloc(sizeof(Cab));
+    l->primeiro = NULL;
+    l->ultimo = NULL;
+    l->quant = 0;
 
     while(strcmp(opcao,"sai")){
         printf("Insira OPCAO NOME MATRICULA\n");
@@ -74,8 +80,8 @@ int main(){
         if(strcmp(opcao,"EX")){
            // l = excluirAluno(l,tempNome,tempMatricula);
         }
-        
-        
+
+
     }
 
     return 0;
