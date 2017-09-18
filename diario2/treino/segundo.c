@@ -8,22 +8,28 @@ typedef struct registro{
     struct registro* prox;
 }Registro;
 
-Registro* inicializaRegistro(){
-    return NULL;
-}
-
 void insereInicio(Registro* l, char tempNome[30], int tempMatricula){
-    Registro* p;
     Registro* novo = (Registro*)malloc(sizeof(Registro));
-    
     strcpy(novo->nome, tempNome);
     novo->matricula = tempMatricula;
-    novo->prox = NULL;
+    novo->prox = l;
+    l=novo;
+}
 
+void insereFinal(Registro* l, char tempNome[30], int tempMatricula){
+   
     if(l == NULL){
-        l = novo;
+        insereInicio(l,tempNome,tempMatricula);
         printf("%s,%d; ", l->nome, l->matricula);
     }else{
+        
+        Registro* p;
+        Registro* novo = (Registro*)malloc(sizeof(Registro));
+        
+        strcpy(novo->nome, tempNome);
+        novo->matricula = tempMatricula;
+        novo->prox = NULL;
+    
         for(p = l; p != NULL; p = p->prox);
         printf("entreeeei %d", p->matricula);
         p->prox = novo;
@@ -41,6 +47,9 @@ void imprimeRegistro(Registro* l){
         printf("\n");
     }
 }
+void excluirAluno(Registro* l, char tempNome[30], int tempMatricula){
+
+}
 
 
 
@@ -50,15 +59,14 @@ int main(){
     char tempNome[30];
     int tempMatricula;
 
-    l = inicializaRegistro();
+    l = NULL;
 
     while(strcmp(opcao,"sai")){
         printf("Insira OPCAO NOME MATRICULA\n");
         scanf("%s %s %d", opcao, tempNome, &tempMatricula);
         if(strcmp(opcao,"IU") == 0){
-            
 
-            insereInicio(l,tempNome,tempMatricula);
+            insereFinal(l,tempNome,tempMatricula);
             imprimeRegistro(l);
 
 
