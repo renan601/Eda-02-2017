@@ -18,7 +18,7 @@ void insereInicio(Cab* l, char tempNome[30], int tempMatricula){
     Registro* novo = (Registro*)malloc(sizeof(Registro));
     strcpy(novo->nome, tempNome);
     novo->matricula = tempMatricula;
-    novo->prox = l;
+    novo->prox = l->primeiro;
     l->primeiro = l->ultimo = novo;
     l->quant++;
 }
@@ -27,7 +27,6 @@ void insereFinal(Cab* l, char tempNome[30], int tempMatricula){
 
     if(l->primeiro == NULL){
         insereInicio(l,tempNome,tempMatricula);
-        printf("%s,%d; ", l->nome, l->matricula);
     }else{
 
         Registro* novo = (Registro*)malloc(sizeof(Registro));
@@ -36,7 +35,7 @@ void insereFinal(Cab* l, char tempNome[30], int tempMatricula){
         novo->matricula = tempMatricula;
         novo->prox = NULL;
 
-        l->ultimo->proximo = novo;
+        l->ultimo->prox = novo;
         l->ultimo = novo;
         l->quant ++;
     }
@@ -47,11 +46,27 @@ void imprimeRegistro(Cab* l){
     Registro* aux = l->primeiro;
     for(i=0;i<l->quant;i++){
       printf("%s,%d; ", aux->nome, aux->matricula);
-      aux = aux->proximo;
+      aux = aux->prox;
     }
 }
 void excluirAluno(Cab* l, char tempNome[30], int tempMatricula){
-    
+    if(l->primeiro == NULL){
+      printf("Lista vazia\n");
+    }else{
+      Registro* p;
+      int i;
+      p = l->primeiro;
+      for(i=0; i < l->quant; i++){
+        if(strcmp(p->nome,tempNome)){
+          break;
+        }
+        p = p->prox;
+      }
+      l->quant--;
+
+
+
+    }
 }
 
 
