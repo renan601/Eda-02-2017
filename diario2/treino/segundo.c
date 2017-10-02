@@ -6,7 +6,6 @@ typedef struct registro{
     char nome[30];
     int matricula;
     struct registro* prox;
-    struct registro* ant;
 }Registro;
 
 typedef struct cabeca{
@@ -49,30 +48,16 @@ void imprimeRegistro(Cab* l){
       printf("%s,%d; ", aux->nome, aux->matricula);
       aux = aux->prox;
     }
+    printf("\n");
 }
 void excluirAluno(Cab* l, char tempNome[30], int tempMatricula){
-    if(l->primeiro == NULL){
-      printf("Lista vazia\n");
-    }else{
-      Registro* p,q;
-      int i, achei=0;
-      p = l->primeiro->prox;
-      q = l->primeiro;
-      for(i=0; i < l->quant; i++){
-        if(strcmp(p->nome,tempNome)){
-          achei = 1;
-          break;
-        }
-        p = p->prox;
-      }
-      if(achei){
-        l->quant--;
-        q->prox = p->prox;
-        free(p);
-      }else{
-        printf("Entrada inválida\n");
-      }
+    Registro* p;
+    int i;
+
+    for(i=0;i < l->quant;i++){
+        
     }
+
 }
 
 

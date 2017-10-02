@@ -33,6 +33,8 @@ void inserePrimeiro(Cab* l, char tempNome[30], int tempMatricula){
   l->ultimo = novo;
 }
 
+
+// Inserção ordenada de aluno
 void insereAluno(Cab* l, char tempNome[30], int tempMatricula){
   int i;
   Registro* p;
@@ -44,6 +46,8 @@ void insereAluno(Cab* l, char tempNome[30], int tempMatricula){
 
 
 int main(){
+  char tempNome[30];
+  int tempMatricula;
   Cab* l;
   l = iniciaCab(l);
 
@@ -54,4 +58,23 @@ int main(){
   }
 
   return 0;
+}
+
+
+void inserir(Cab* l){
+  char nome[50];
+  Registro* novo= (Registro*)malloc(sizeof(Registro));
+
+  scanf("%s", nome);
+
+  novo->nome = (char*)malloc(sizeof(char) * strlen(nome));
+  strcpy(novo->nome, nome);
+  novo->prox = NULL;
+
+  if(l->primeiro == NULL){
+    l->primeiro = novo;
+    l->quant++;
+  }else{
+    
+  }
 }
