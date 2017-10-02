@@ -23,15 +23,11 @@ int filaCheia(Cab* l, int* v){
 void imprimirFila(Cab* l, int* v){
     int i;
     if(filaVazia(l,v)){
-        printf("\nFila Vazia\n");
+        printf("\nFila Vazia");
         return ;
     }
     printf("\n");
-    for(i = l->ini; i != l->fim; i++){
-        if(i == M){
-            i == 0;
-            continue;
-        }
+    for(i = l->ini; i != l->fim; i = (i+1)%M){
         printf(" %d ->", v[i]);
     }
 }
@@ -44,10 +40,8 @@ void inserir(Cab* l, int* v){
         getchar();
     }else{
         scanf("%d", &x);
-        if(l->fim + 1 == M)
-            v[l->fim = 0] = x;
-        else
-            v[l->fim++] = x;
+        v[l->fim] = x;
+        l->fim = (l->fim + 1) % M;
     }
 }
 
