@@ -4,7 +4,7 @@
 #include<time.h>
 
 
-#define MAX 100
+#define MAX 20
 typedef int titem;
 #define N 7
 #define LIVRE 0
@@ -71,8 +71,11 @@ void anota(int L[N][N]){
     fila[fim].x = 1;
     fila[fim++].y = 1;
     while(fim!=ini){
-      c = L[ fila[ini].x ][ fila[ini].y ]+1;
+        c = L[ fila[ini].x ][ fila[ini].y ]+1;
+        
 
+
+/*
       for(i=fila[ini].x -1; i < fila[ini].x +2; i++){
         if(L[i][fila[ini].y] == LIVRE){
           L[i][fila[ini].y] = c;
@@ -88,6 +91,7 @@ void anota(int L[N][N]){
         }
       }
       ini++;
+*/
     }
 }
 
@@ -98,6 +102,7 @@ int main(){
     srand(time(NULL));
     do{
         system("clear");
+        
         cria(L);
         anota(L);
         exibe(L);
