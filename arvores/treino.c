@@ -5,9 +5,8 @@
 #include<stdlib.h>
 
 typedef struct arvore{
-    int val;
+    int info;
     struct arvore* esq;
-    struct arvore* mid;
     struct arvore* dir;
 }Arv;
 
@@ -15,21 +14,37 @@ int checa_Vazio(Arv* a){
     return (a == NULL);
 }
 
-Arv* cria_Vazio(Arv* a){
+Arv* inicia_No(Arv* a, int val){
     a = (Arv*)malloc(sizeof(Arv));
     
-    a->val = 0;
+    a->info = val;
     a->esq = NULL;
-    a->mid = NULL;
     a->dir = NULL;
 
     return a;
 }
 
-Arv* cria_No(Arv* a, int val){
+Arv* insere_No(Arv* a, int val){
     Arv* novo;
 
-    if(!checa_Vazio(a)){
+    if(checa_Vazio(a)){
+        a = inicia_No(a, val);
+    }else{
+        if(val < a->info){
+            if(checa_Vazio(a->esq)){
+                novo = inicia_No(novo,val)
+                a->esq = novo;
+            }else{
+                insere_No(a->esq, val);
+            }
+        }else if(val >= a->info){
+            if(checa_Vazio(a->dir)){
+                novo = inicia_No(novo,val);
+                a->dir = novo;
+            }else{
+                novo = insere_No(a->dir,val);
+            }
+        }
     }
 
     return a;
