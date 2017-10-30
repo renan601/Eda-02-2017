@@ -50,6 +50,17 @@ Arv* insere_No(Arv* a, int val){
     return a;
 }
 
+Arv* destruir(Arv* a){
+    if(!checa_Vazio(a)){
+        destruir(a->esq);
+        destruir(a->dir);
+        free(a);
+    }
+    return NULL;
+}
+
+
+
 int main(){
     Arv* a
 
