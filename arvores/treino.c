@@ -32,7 +32,7 @@ Arv* insere_No(Arv* a, int val){
     }else{
         if(val < a->info){
             if(checa_Vazio(a->esq)){
-                novo = inicia_No(novo,val)
+                novo = inicia_No(novo,val);
                 a->esq = novo;
             }else{
                 insere_No(a->esq, val);
@@ -79,7 +79,7 @@ void imprimir_Em_Ordem(Arv* a){
 void imprimir_Pos_Ordem(Arv* a){
     if(!checa_Vazio(a)){
         imprimir_Pos_Ordem(a->esq);
-        imprimir_Pos_Ordem(a->dir):
+        imprimir_Pos_Ordem(a->dir);
         printf("%d ", a->info);
     }
 }
@@ -91,7 +91,7 @@ void imprimir_Em_Nivel(Arv* a){
 }
 
 int main(){
-    Arv* a
+    Arv* a;
     int opcao = 1;
     int val = 0;
 
@@ -129,7 +129,7 @@ int main(){
                 imprimir_Pos_Ordem(a);
                 break;
             case 7:
-                
+
                 break;
         }
     }
