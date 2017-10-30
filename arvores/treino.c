@@ -91,6 +91,17 @@ void imprimir_Em_Nivel(Arv* a){
     }
 }
 
+void remoção(Arv* a, int val){
+
+    if(!checa_Vazio(a)){
+        if(checa_Vazio(a->esq) && checa_Vazio(a->dir)){
+            free(a);
+        }else if(checa_Vazio(a->esq) && !checa_Vazio(a->dir) || !checa_Vazio(a->esq) && checa_Vazio(a->dir)){
+             
+        }
+    }
+}
+
 int main(){
     Arv* a = NULL;
     int opcao = 1;
