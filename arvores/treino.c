@@ -29,6 +29,8 @@ Arv* insere_No(Arv* a, int val){
 
     if(checa_Vazio(a)){
         a = inicia_No(a, val);
+
+        return a;
     }else{
         if(val < a->info){
             if(checa_Vazio(a->esq)){
@@ -47,7 +49,6 @@ Arv* insere_No(Arv* a, int val){
         }
     }
 
-    return a;
 }
 
 Arv* destruir(Arv* a){
@@ -91,7 +92,7 @@ void imprimir_Em_Nivel(Arv* a){
 }
 
 int main(){
-    Arv* a;
+    Arv* a = NULL;
     int opcao = 1;
     int val = 0;
 
