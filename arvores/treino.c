@@ -37,7 +37,7 @@ Arv* insere_No(Arv* a, int val){
                 novo = inicia_No(novo,val);
                 a->esq = novo;
             }else{
-                insere_No(a->esq, val);
+                novo = insere_No(a->esq, val);
             }
         }else if(val >= a->info){
             if(checa_Vazio(a->dir)){
@@ -48,6 +48,7 @@ Arv* insere_No(Arv* a, int val){
             }
         }
     }
+    return a;
 
 }
 
@@ -90,7 +91,7 @@ void imprimir_Em_Nivel(Arv* a){
 
     }
 }
-
+/*
 void remoção(Arv* a, int val){
 
     if(!checa_Vazio(a)){
@@ -101,7 +102,7 @@ void remoção(Arv* a, int val){
         }
     }
 }
-
+*/
 int main(){
     Arv* a = NULL;
     int opcao = 1;
