@@ -53,7 +53,7 @@
 /* Structs */
 typedef struct letra {
     int valor;
-    struct letra* prox;
+    struct letra* prox[28];
 }Letra;
 
 /* Retorna true se a palavra estah no dicionario. Do contrario, retorna false */
