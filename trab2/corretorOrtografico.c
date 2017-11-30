@@ -49,22 +49,24 @@ Letra* inicia_No(Letra* a){
 void salva_Palavra(char* palavra){
     int i;
     char C;
-    Letra* p; 
+    Letra* p;
 
     for(i = 0; i < strlen(palavra); i++){
         C = palavra[i];
         if(!i){
+            if(L[palavra[i]] == NULL)
+                L[palavra[i]] = inicia_No(L[palavra[i]]);
             p = L[palavra[i] - 97];
             p->valor = 1;
         }else{
             if(C == 40){ /* checa se é apóstrofo*/
                 if(p->prox[26] == NULL)
-                    inicia_No(p->prox[26]);
+                    p->prox[26] = inicia_No(p->prox[26]);
                 p = p->prox[26];
                 p->valor = 1;
             }else{
                 if(p->prox[C - 97] == NULL)
-                    inicia_No(p->prox[C - 97]);
+                    p->prox[C - 97] = inicia_No(p->prox[C - 97]);
                 p = p->prox[C - 97];
                 p->valor = 1;
             }
@@ -77,8 +79,25 @@ bool conferePalavra(const char *palavra) {
     Letra* p;
     int i;
     char C;
-    
-    return false;
+
+    for(i = 0; i < strlen(palavra); i++){
+        C = palavra[i];
+        if(!i){
+            if(L[palavra[i] - 97] == NULL || L[palavra[i] - 97]->valor == 0)
+            p = L[palavra[i] - 97];
+        }else{
+            if(C == 40){ /* checa se é apóstrofo*/
+                if(p->prox[26] == NULL || p->prox[26]->valor == 0)
+                    return false;
+                p = p->prox[26];
+            }else{
+                if(p->prox[C - 97] == NULL || p->prox[C - 97]->valor == 0)
+                    return false;
+                p = p->prox[C - 97];
+            }
+        }
+    }
+    return true;
 } /* fim-conferePalavra */
 
 /* Carrega dicionario na memoria. Retorna true se sucesso; senao retorna false. */
