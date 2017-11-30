@@ -34,6 +34,14 @@ typedef struct letra {
 Letra* L[26];
 int num_palavras = 0;
 
+/*Inicia Arvore */
+void inicia_Arvore(){
+    int i;
+    for(i = 0; i < 26; i++){
+        L[i] = (Letra*)malloc(sizeof(Letra));
+    }
+}
+
 /*Inicializa No da árvore */
 Letra* inicia_No(Letra* a){
 
@@ -47,11 +55,11 @@ Letra* inicia_No(Letra* a){
 
 /*Salva o caminho da palavra na árvore */
 void salva_Palavra(char* palavra){
-    int i;
+    int i=0;
     char C;
     Letra* p;
 
-    for(i = 0; i < strlen(palavra); i++){
+    while(C != '\0'){
         C = palavra[i];
         if(!i){
             if(L[palavra[i]] == NULL)
@@ -59,18 +67,20 @@ void salva_Palavra(char* palavra){
             p = L[palavra[i] - 97];
             p->valor = 1;
         }else{
-            if(C == 40){ /* checa se é apóstrofo*/
+            if(C == '\''){ 
                 if(p->prox[26] == NULL)
                     p->prox[26] = inicia_No(p->prox[26]);
                 p = p->prox[26];
                 p->valor = 1;
             }else{
+                printf("%d\n",i);
                 if(p->prox[C - 97] == NULL)
                     p->prox[C - 97] = inicia_No(p->prox[C - 97]);
                 p = p->prox[C - 97];
                 p->valor = 1;
             }
         }
+        i++;
     }
 }/*fim-salva_Palavra*/
 
@@ -84,9 +94,10 @@ bool conferePalavra(const char *palavra) {
         C = palavra[i];
         if(!i){
             if(L[palavra[i] - 97] == NULL || L[palavra[i] - 97]->valor == 0)
+                return false;
             p = L[palavra[i] - 97];
         }else{
-            if(C == 40){ /* checa se é apóstrofo*/
+            if(C == '\''){ /* checa se é apóstrofo*/
                 if(p->prox[26] == NULL || p->prox[26]->valor == 0)
                     return false;
                 p = p->prox[26];
@@ -97,6 +108,7 @@ bool conferePalavra(const char *palavra) {
             }
         }
     }
+    
     return true;
 } /* fim-conferePalavra */
 
@@ -162,6 +174,7 @@ int main(int argc, char *argv[]) {
     char *arqTexto;
     FILE *fd;
 
+    inicia_Arvore();
     /* Confere se o numero de argumentos de chamada estah correto */
     if (argc != 2 && argc != 3) {
         printf("Uso: %s [nomeArquivoDicionario] nomeArquivoTexto\n", argv[0]);
