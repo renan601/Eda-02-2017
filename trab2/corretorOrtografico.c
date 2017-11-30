@@ -95,11 +95,15 @@ bool conferePalavra(const char *palavra) {
     char C;
     
     for(i = 0; i < strlen(palavra); i++){
-        C = palavra[i];
-        if(!i){
-            if(L[palavra[i] - 97] == NULL || L[palavra[i] - 97]->valor == 0)
+        if(palavra[i] != '\'')
+            C = tolower(palavra[i]);
+        else
+            C = palavra[i];
+        
+        if(i == 0){
+            if(L[C - 97] == NULL || L[C - 97]->valor == 0)
                 return false;
-            p = L[palavra[i] - 97];
+            p = L[C - 97];
         }else{
             if(C == '\''){ /* checa se é apóstrofo*/
                 if(p->prox[26] == NULL || p->prox[26]->valor == 0)
@@ -144,13 +148,23 @@ unsigned int contaPalavrasDic(void) {
     return num_palavras;
 } /* fim-contaPalavrasDic */
 
-
+Letra* destroi_Arvore(Letra* a){
+    int i;
+    if(a != NULL){
+        for(i = 0; i < 27; i++)
+            destroi_Arvore(a->prox[i]);
+        free(a);
+    }
+    return NULL;
+}
 /* Descarrega dicionario da memoria. Retorna true se ok e false se algo deu errado */
 bool descarregaDicionario(void) {
-
-    /* construa essa funcao */
-
-    return false;
+    int i;
+    for(i = 0; i < 26; i++){
+        L[i] = destroi_Arvore(L[i]);
+    }
+    
+    return true;
 } /* fim-descarregaDicionario */
 
 /* Retorna o numero de segundos entre a e b */
