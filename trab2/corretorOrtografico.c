@@ -24,34 +24,6 @@
 #define ARQTEXTO_ERROLEITURA    4
 #define ERRO_DICIO_NAOCARREGADO 5
 
-/* definicao dos valores das letras 
-#define a 0
-#define b 1
-#define c 2
-#define d 3
-#define e 4
-#define f 5
-#define g 6
-#define h 7
-#define i 8
-#define j 9
-#define k 10
-#define l 11
-#define m 12
-#define n 13
-#define o 14
-#define p 15
-#define q 16
-#define r 17
-#define s 18
-#define t 19
-#define u 20
-#define v 21
-#define w 22
-#define x 23
-#define y 24
-#define z 25
-*/
 /* Structs */
 typedef struct letra {
     int valor;
@@ -60,6 +32,7 @@ typedef struct letra {
 
 /*Variáveis Globais */
 Letra* L[26];
+int num_palavras = 0;
 
 /*Inicializa No da árvore */
 Letra* inicia_No(Letra* a){
@@ -101,9 +74,10 @@ void salva_Palavra(char* palavra){
 
 /* Retorna true se a palavra estah no dicionario. Do contrario, retorna false */
 bool conferePalavra(const char *palavra) {
-
-    /* construa essa funcao */
-
+    Letra* p;
+    int i;
+    char C;
+    
     return false;
 } /* fim-conferePalavra */
 
@@ -121,6 +95,7 @@ bool carregaDicionario(const char *dicionario) {
             if(!fscanf(f,"%s",palavra))
                 return false;
             else{
+                num_palavras++;
                 salva_Palavra(palavra);
             }
         }
@@ -131,10 +106,7 @@ bool carregaDicionario(const char *dicionario) {
 
 /* Retorna qtde palavras do dicionario, se carregado; senao carregado retorna zero */
 unsigned int contaPalavrasDic(void) {
-
-    /* construa essa funcao */
-
-    return 0;
+    return num_palavras;
 } /* fim-contaPalavrasDic */
 
 
