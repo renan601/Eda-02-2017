@@ -34,23 +34,27 @@ typedef struct letra {
 Letra* L[26];
 int num_palavras = 0;
 
+
+
+/*Inicializa No da árvore */
+Letra* inicia_No(Letra* a){
+    int i;
+    Letra* novo = (Letra*)malloc(sizeof(Letra));
+
+    novo->valor = 0;
+    for(i = 0; i < 27; i++){
+        novo->prox[i] = NULL;
+    }
+    a = novo;
+
+    return a;
+}
 /*Inicia Arvore */
 void inicia_Arvore(){
     int i;
     for(i = 0; i < 26; i++){
-        L[i] = (Letra*)malloc(sizeof(Letra));
+        L[i] = inicia_No(L[i]);
     }
-}
-
-/*Inicializa No da árvore */
-Letra* inicia_No(Letra* a){
-
-    Letra* novo = (Letra*)malloc(sizeof(Letra));
-
-    novo->valor = 0;
-    a = novo;
-
-    return a;
 }
 
 /*Salva o caminho da palavra na árvore */
@@ -59,9 +63,9 @@ void salva_Palavra(char* palavra){
     char C;
     Letra* p;
 
-    while(C != '\0'){
+    for(i = 0; i < strlen(palavra); i++){
         C = palavra[i];
-        if(!i){
+        if(i == 0){
             if(L[palavra[i]] == NULL)
                 L[palavra[i]] = inicia_No(L[palavra[i]]);
             p = L[palavra[i] - 97];
@@ -73,14 +77,14 @@ void salva_Palavra(char* palavra){
                 p = p->prox[26];
                 p->valor = 1;
             }else{
-                printf("%d\n",i);
+                
                 if(p->prox[C - 97] == NULL)
                     p->prox[C - 97] = inicia_No(p->prox[C - 97]);
                 p = p->prox[C - 97];
                 p->valor = 1;
             }
         }
-        i++;
+        
     }
 }/*fim-salva_Palavra*/
 
@@ -89,7 +93,7 @@ bool conferePalavra(const char *palavra) {
     Letra* p;
     int i;
     char C;
-
+    
     for(i = 0; i < strlen(palavra); i++){
         C = palavra[i];
         if(!i){
