@@ -53,8 +53,49 @@
 /* Structs */
 typedef struct letra {
     int valor;
-    struct letra* prox[28];
+    struct letra* prox[27];
 }Letra;
+
+/*Variáveis Globais */
+Letra l[26];
+
+/*Inicializa No da árvore */
+Letra* inicia_No(Letra* a){
+
+    Letra* novo = (Letra*)malloc(sizeof(Letra));
+
+    novo->valor = 0;
+    a = novo;
+
+    return a;
+}
+
+/*Salva o caminho da palavra na árvore */
+void salva_Palavra(char* palavra){
+    int i;
+    char C;
+    Letra* p; 
+
+    for(i = 0; i < strlen(palavra); i++){
+        C = palavra[i];
+        if(!i)
+            p = L[palavra[i]];
+            p->valor = 1;
+        else{
+            if(C == 40){ /* checa se é apóstrofo*/
+                if(p->prox[26] == NULL)
+                    inicia_No(p->prox[26]);
+                p = p->prox[26];
+                p->valor = 1;
+            }else{
+                if(p->prox[C] == NULL)
+                    inicia_No(p->prox[C]);
+                p = p->prox[C];
+                p->valor = 1;
+            }
+        }
+    }
+}/*fim-salva_Palavra*/
 
 /* Retorna true se a palavra estah no dicionario. Do contrario, retorna false */
 bool conferePalavra(const char *palavra) {
@@ -67,9 +108,22 @@ bool conferePalavra(const char *palavra) {
 /* Carrega dicionario na memoria. Retorna true se sucesso; senao retorna false. */
 bool carregaDicionario(const char *dicionario) {
 
-    /* construa essa funcao */
+    FILE* f;
+    int i;
+    char palavra[TAM_MAX];
 
-    return false;
+    if(! (f = fopen(dicionario,"r")) == NULL)
+        return false;
+    else{
+        while(!feof(f)){
+            if(!fscanf(f,"%s",palavra))
+                return false;
+            else{
+                salva_Palavra(palavra);
+            }
+        }
+    }
+    return true;
 } /* fim-carregaDicionario */
 
 
