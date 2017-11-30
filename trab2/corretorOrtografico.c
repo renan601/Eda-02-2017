@@ -8,6 +8,8 @@
 #include <sys/resource.h>
 #include <sys/time.h>
 #include <stdbool.h>
+#include<stdlib.h>
+#include<string.h>
 
 /* Tamanho maximo de uma palavra do dicionario */
 #define TAM_MAX 45
@@ -22,7 +24,7 @@
 #define ARQTEXTO_ERROLEITURA    4
 #define ERRO_DICIO_NAOCARREGADO 5
 
-/* definicao dos valores das letras */
+/* definicao dos valores das letras 
 #define a 0
 #define b 1
 #define c 2
@@ -49,7 +51,7 @@
 #define x 23
 #define y 24
 #define z 25
-
+*/
 /* Structs */
 typedef struct letra {
     int valor;
@@ -57,7 +59,7 @@ typedef struct letra {
 }Letra;
 
 /*Variáveis Globais */
-Letra l[26];
+Letra* L[26];
 
 /*Inicializa No da árvore */
 Letra* inicia_No(Letra* a){
@@ -78,19 +80,19 @@ void salva_Palavra(char* palavra){
 
     for(i = 0; i < strlen(palavra); i++){
         C = palavra[i];
-        if(!i)
-            p = L[palavra[i]];
+        if(!i){
+            p = L[palavra[i] - 97];
             p->valor = 1;
-        else{
+        }else{
             if(C == 40){ /* checa se é apóstrofo*/
                 if(p->prox[26] == NULL)
                     inicia_No(p->prox[26]);
                 p = p->prox[26];
                 p->valor = 1;
             }else{
-                if(p->prox[C] == NULL)
-                    inicia_No(p->prox[C]);
-                p = p->prox[C];
+                if(p->prox[C - 97] == NULL)
+                    inicia_No(p->prox[C - 97]);
+                p = p->prox[C - 97];
                 p->valor = 1;
             }
         }
@@ -108,11 +110,11 @@ bool conferePalavra(const char *palavra) {
 /* Carrega dicionario na memoria. Retorna true se sucesso; senao retorna false. */
 bool carregaDicionario(const char *dicionario) {
 
-    FILE* f;
+    FILE* f = fopen(dicionario,"r");
     int i;
     char palavra[TAM_MAX];
 
-    if(! (f = fopen(dicionario,"r")) == NULL)
+    if(f == NULL)
         return false;
     else{
         while(!feof(f)){
